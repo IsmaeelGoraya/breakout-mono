@@ -9,12 +9,12 @@ public class InputManager : MonoBehaviour
     public delegate void EndTouch(Vector2 position, float time);
     public event EndTouch OnEndTouch;
 
-    private PlayerControls padInputs;
+    private PadInputs padInputs;
     private Camera mainCamera;
 
     private void Awake()
     {
-        padInputs = new PlayerControls();
+        padInputs = new PadInputs();
         mainCamera = Camera.main;
     }
 

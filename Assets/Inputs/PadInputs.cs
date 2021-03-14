@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Inputs/PlayerControls.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Inputs/PadInputs.inputactions'
 
 using System;
 using System.Collections;
@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-public class @PlayerControls : IInputActionCollection, IDisposable
+public class @PadInputs : IInputActionCollection, IDisposable
 {
     public InputActionAsset asset { get; }
-    public @PlayerControls()
+    public @PadInputs()
     {
         asset = InputActionAsset.FromJson(@"{
-    ""name"": ""PlayerControls"",
+    ""name"": ""PadInputs"",
     ""maps"": [
         {
             ""name"": ""Touch"",
@@ -132,8 +132,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_Touch_PrimaryPosition;
     public struct TouchActions
     {
-        private @PlayerControls m_Wrapper;
-        public TouchActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        private @PadInputs m_Wrapper;
+        public TouchActions(@PadInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @PrimaryContact => m_Wrapper.m_Touch_PrimaryContact;
         public InputAction @PrimaryPosition => m_Wrapper.m_Touch_PrimaryPosition;
         public InputActionMap Get() { return m_Wrapper.m_Touch; }
