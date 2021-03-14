@@ -9,6 +9,11 @@ public class PadController : MonoBehaviour
     private Coroutine moveCoroutine;
     private Vector3 newPos = Vector3.zero;
 
+    private void Awake()
+    {
+        newPos = transform.position;
+    }
+
     private void OnEnable()
     {
         inputManager.OnStartTouch += TouchStarted;
@@ -25,15 +30,9 @@ public class PadController : MonoBehaviour
     {
         while (true) {
             newPos.x = inputManager.PrimaryPosition().x;
-            MoveHorizontal(newPos.x, Time.deltaTime);
+            transform.position = newPos;
             yield return null;
         }
-    }
-
-
-    private void MoveHorizontal(float xDelta, float time)
-    {
-        transform.Translate(xDelta * Time.deltaTime, 0, 0);
     }
 
     private void TouchStarted(Vector2 xDelta, float time)
