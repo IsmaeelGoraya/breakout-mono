@@ -1,33 +1,48 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PadController : MonoBehaviour
 {
-    public InputAction control;
+    public InputManager inputManager;
 
-    private void Awake()
-    {
-    }
+    private Coroutine moveCoroutine;
+    private Vector3 newPos = Vector3.zero;
 
     private void OnEnable()
     {
-        control.Enable();
+        inputManager.OnStartTouch += TouchStarted;
+        inputManager.OnEndTouch += TouchEnded;
     }
 
-    private void OnDisable()
+    private void OnDisabel()
     {
-        control.Disable();
+        inputManager.OnStartTouch -= TouchStarted;
+        inputManager.OnEndTouch -= TouchEnded;
     }
 
-    private void Update()
+    private IEnumerator Move()
     {
-        MoveHorizontal(control.ReadValue<float>());
-        
+        while (true) {
+            newPos.x = inputManager.PrimaryPosition().x;
+            MoveHorizontal(newPos.x, Time.deltaTime);
+            yield return null;
+        }
     }
 
-    public void MoveHorizontal(float xDelta)
+
+    public void MoveHorizontal(float xDelta, float time)
     {
         transform.Translate(xDelta * Time.deltaTime, 0, 0);
+    }
+
+    private void TouchStarted(Vector2 xDelta, float time)
+    {
+        moveCoroutine = StartCoroutine(Move());
+    }
+
+    private void TouchEnded(Vector2 xDelta, float time)
+    {
+        StopCoroutine(moveCoroutine);
     }
 
 }

@@ -302,59 +302,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9e12f7fcd802419b8ac490fbcba86d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  control:
-    m_Name: Control
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: b210e2ff-82c9-4e55-8cbb-0e559b9a1663
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 1D Axis
-      m_Id: a4cbd37a-7bc1-440d-926c-ab65285a3711
-      m_Path: 1DAxis
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Control
-      m_Flags: 4
-    - m_Name: negative
-      m_Id: d68a61ad-15b3-4247-ab19-93d549caf526
-      m_Path: <Mouse>/leftButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Control
-      m_Flags: 8
-    - m_Name: positive
-      m_Id: ad03ad6d-cbc4-4ce6-93ea-136b0e812a08
-      m_Path: <Mouse>/rightButton
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Control
-      m_Flags: 8
-    - m_Name: 1D Axis
-      m_Id: 48bb9e7d-de98-4859-a16d-d061663fae98
-      m_Path: 1DAxis
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Control
-      m_Flags: 4
-    - m_Name: negative
-      m_Id: 7eafbc71-be82-496f-a241-2419100dfb39
-      m_Path: <Touchscreen>/primaryTouch/delta/x
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Control
-      m_Flags: 8
-    - m_Name: positive
-      m_Id: 67e97fc8-cb63-4e37-90de-b8352d62508b
-      m_Path: <Touchscreen>/primaryTouch/delta/x
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Control
-      m_Flags: 8
+  inputManager: {fileID: 1361924367}
+--- !u!1 &1361924365
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1361924366}
+  - component: {fileID: 1361924367}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1361924366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361924365}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1361924367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1361924365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d167d66ff420417dace09802be0af41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
