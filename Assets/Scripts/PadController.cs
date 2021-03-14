@@ -3,7 +3,8 @@ using System.Collections;
 
 public class PadController : MonoBehaviour
 {
-    public InputManager inputManager;
+    [SerializeField]
+    private InputManager inputManager;
 
     private Coroutine moveCoroutine;
     private Vector3 newPos = Vector3.zero;
@@ -30,7 +31,7 @@ public class PadController : MonoBehaviour
     }
 
 
-    public void MoveHorizontal(float xDelta, float time)
+    private void MoveHorizontal(float xDelta, float time)
     {
         transform.Translate(xDelta * Time.deltaTime, 0, 0);
     }
