@@ -21,8 +21,8 @@ public class BallController : MonoBehaviour
 
     private void Respawn()
     {
-        ballSpawnPosition = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2f, Screen.height / 8f));
-        transform.position = new Vector3();
+        ballSpawnPosition = new Vector2(0,-3);
+        transform.position = ballSpawnPosition;
         rigidBody.velocity = Random.insideUnitCircle.normalized * speed;
     }
 
