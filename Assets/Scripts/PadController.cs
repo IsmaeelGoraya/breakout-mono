@@ -5,7 +5,6 @@ public class PadController : MonoBehaviour
 {
     [SerializeField]
     private InputManager inputManager;
-
     private Coroutine moveCoroutine;
     private Vector3 newPos = Vector3.zero;
 

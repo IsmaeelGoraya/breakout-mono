@@ -27,7 +27,8 @@ public class BrickBehaviour : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        //Asuming that only ball is moving and it will be the only collider to ever collide with brick.
         OnBrickDestroyed?.Invoke(this);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

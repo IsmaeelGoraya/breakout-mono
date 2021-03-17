@@ -11,13 +11,12 @@ public class BrickSpawner : MonoBehaviour
     private List<BrickBehaviour> currentLevelBrickBehaviours;
     private float brickSpacing = 0.1f;
     private Vector2 startSpawnPosition;
+    private Vector2 nextSpwanPosition;
     [SerializeField]
     private BallController ballController;
+    private int bricksDestroyed;
 
     public GameObject brickPrefab;
-    public int rows;
-    public int coloumns;
-
 
     private void Awake()
     {
@@ -26,71 +25,114 @@ public class BrickSpawner : MonoBehaviour
         startSpawnPosition = Camera.main.ScreenToWorldPoint(screenSize);
         startSpawnPosition.x += brickPrefab.transform.localScale.x / 2;
         startSpawnPosition.y -= brickPrefab.transform.localScale.y;
-        //TODO: Will refactor this later to text/json based
-        //Create bricks with only multiples of 3 at the moment
-        currentLevel = new Level(1, coloumns, rows);
-        //ballController.OnBallDropped += Reset;
+        nextSpwanPosition = Vector2.zero;
+        ballController.OnBallDropped += ResetCurrentLevel;
     }
-
-    //private void Reset()
-    //{
-    //    foreach (var brick in currentLevelBrickBehaviours)
-    //    {
-    //        Destroy(brick);
-    //    }
-    //}
 
     private void Start()
     {
-        Respawn();
+        //TODO: Will refactor this later to text/json based
+        //Create bricks with only multiples of 3 at the moment
+        currentLevel = new Level(1, UnityEngine.Random.Range(3,6),UnityEngine.Random.Range(3,10));
+        CreateNewLevel(currentLevel);
     }
 
-    private void Respawn()
+    private void CreateBrickObjects(Level level)
     {
-        CreateBricks();
-        PositionBricks();
-    }
-
-    private void CreateBricks()
-    {
-        currentLevelTotalBricks = BrickFactory.CreateBricks(currentLevel);
+        
         currentLevelBrickBehaviours = new List<BrickBehaviour>(currentLevelTotalBricks.Count);
 
         foreach (var brick in currentLevelTotalBricks)
         {
             BrickBehaviour brickBehaviour = GameObject.Instantiate(brickPrefab, Vector3.zero, Quaternion.identity).GetComponent<BrickBehaviour>();
             brickBehaviour.BrickModel = brick;
+            brickBehaviour.OnBrickDestroyed  += OnBrickDestroyed;
             currentLevelBrickBehaviours.Add(brickBehaviour);
         }
 
     }
-    Vector2 spwanPosition = Vector2.zero;
+    
     private void PositionBricks()
     {
         for (int i = 0; i < currentLevel.Rows; i++)
         {
             for (int j = 0; j < currentLevel.Coloumns; j++)
             {
-                spwanPosition = startSpawnPosition + new Vector2(
-                    j * (currentLevelBrickBehaviours[i + (j + ((coloumns-1) * i))].transform.localScale.x + brickSpacing),
-                    -i * (currentLevelBrickBehaviours[i + (j + ((coloumns - 1) * i))].transform.localScale.y*0.5f + brickSpacing)
+                nextSpwanPosition = startSpawnPosition + new Vector2(
+                    j * (currentLevelBrickBehaviours[i + (j + ((currentLevel.Coloumns-1) * i))].transform.localScale.x + brickSpacing),
+                    -i * (currentLevelBrickBehaviours[i + (j + ((currentLevel.Coloumns - 1) * i))].transform.localScale.y*0.5f + brickSpacing)
                     );
 
-                currentLevelBrickBehaviours[i + (j + ((coloumns - 1) * i))].transform.position = spwanPosition;
+                currentLevelBrickBehaviours[i + (j + ((currentLevel.Coloumns - 1) * i))].transform.position = nextSpwanPosition;
             }
         }
     }
 
     private void OnBrickDestroyed(BrickBehaviour destroyedBrick)
     {
-        currentLevelBrickBehaviours.Remove(destroyedBrick);
-        currentLevelTotalBricks.Remove(destroyedBrick.BrickModel);
-
-        if(currentLevelBrickBehaviours.Count < 1)
+        bricksDestroyed--;
+        if(bricksDestroyed < 1)
         {
-            currentLevelBrickBehaviours.Clear();
-            currentLevelTotalBricks.Clear();
-            Respawn();
+            DestroyCurrentLevel();
+            //Create new level
+            currentLevel = new Level(1, UnityEngine.Random.Range(3,6),UnityEngine.Random.Range(3,10));
+            CreateNewLevel(currentLevel);
         }
     }
+
+    private void CreateNewLevel(Level level)
+    {
+        bricksDestroyed = level.BricksCount;
+        //Create brick models
+        currentLevelTotalBricks = BrickFactory.CreateBricks(level);
+        //Create brick objects
+        CreateBrickObjects(level);
+        //Position bricks in row and coloumn
+        PositionBricks();
+    }
+
+    private void DestroyCurrentLevel()
+    {
+        if(currentLevel != null)
+        {
+            //Destroy brick models
+            for (int i =0 ; i < currentLevelTotalBricks.Count ; i++)
+            {
+                currentLevelTotalBricks[i] = null;
+            }
+
+            //Destroy brick objects
+            foreach (var brickGO in currentLevelBrickBehaviours)
+            {
+                brickGO.OnBrickDestroyed -= OnBrickDestroyed;
+                Destroy(brickGO.gameObject);
+            }
+
+            currentLevelBrickBehaviours.Clear();
+            currentLevelTotalBricks.Clear();
+            currentLevel = null;
+        }
+        else
+        {
+            Debug.LogError("currentLevel is null in brickSpawner");
+        }
+    }
+
+    private void ResetCurrentLevel()
+    {
+        if(currentLevel != null)
+        {
+            //Renable destroyed bricks
+            foreach (var brick in currentLevelBrickBehaviours)
+            {
+                brick.gameObject.SetActive(true);   
+            }
+            bricksDestroyed = currentLevel.BricksCount;
+        }
+        else
+        {
+            Debug.LogError("currentLevel is null in brickSpawner");
+        }
+    }
+
 }

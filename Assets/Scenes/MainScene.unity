@@ -170,7 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cee3488cb91148ca9d2ffee05d451ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brickSpawner: {fileID: 0}
 --- !u!58 &70668595
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -539,8 +538,8 @@ BoxCollider2D:
   m_GameObject: {fileID: 755071101}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 7e1e3128869724c65aceea6babfa0964, type: 2}
-  m_IsTrigger: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -563,7 +562,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755071101}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1034,8 +1033,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2794572e85e2e4f3d940c0a565fcac61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ballController: {fileID: 0}
+  ballController: {fileID: 70668594}
   brickPrefab: {fileID: 7715035165711043421, guid: 1ac6fc01ebceb422f8d44721cdcb4467,
     type: 3}
-  rows: 6
-  coloumns: 4
