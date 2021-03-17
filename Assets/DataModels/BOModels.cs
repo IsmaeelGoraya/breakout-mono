@@ -45,17 +45,17 @@ namespace DataModels
     {
         private int levelNumber;
         private int rows;
-        private int coloumns;
+        private int columns;
 
         public int LevelNumber { get => levelNumber;}
-        public int BricksCount { get => coloumns * rows;}
+        public int BricksCount { get => columns * rows;}
         public int Rows { get => rows; }
-        public int Coloumns { get => coloumns;}
+        public int Columns { get => columns;}
 
-        public Level(int level, int coloumns, int rows)
+        public Level(int level, int columns, int rows)
         {
             this.levelNumber = level;
-            this.coloumns = coloumns;
+            this.columns = columns;
             this.rows = rows;
         }
 
