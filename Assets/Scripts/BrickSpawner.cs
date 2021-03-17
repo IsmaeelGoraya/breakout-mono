@@ -56,14 +56,14 @@ public class BrickSpawner : MonoBehaviour
     {
         for (int i = 0; i < currentLevel.Rows; i++)
         {
-            for (int j = 0; j < currentLevel.Coloumns; j++)
+            for (int j = 0; j < currentLevel.Columns; j++)
             {
                 nextSpwanPosition = startSpawnPosition + new Vector2(
-                    j * (currentLevelBrickBehaviours[i + (j + ((currentLevel.Coloumns-1) * i))].transform.localScale.x + brickSpacing),
-                    -i * (currentLevelBrickBehaviours[i + (j + ((currentLevel.Coloumns - 1) * i))].transform.localScale.y*0.5f + brickSpacing)
+                    j * (currentLevelBrickBehaviours[i + (j + ((currentLevel.Columns-1) * i))].transform.localScale.x + brickSpacing),
+                    -i * (currentLevelBrickBehaviours[i + (j + ((currentLevel.Columns - 1) * i))].transform.localScale.y*0.5f + brickSpacing)
                     );
 
-                currentLevelBrickBehaviours[i + (j + ((currentLevel.Coloumns - 1) * i))].transform.position = nextSpwanPosition;
+                currentLevelBrickBehaviours[i + (j + ((currentLevel.Columns - 1) * i))].transform.position = nextSpwanPosition;
             }
         }
     }
@@ -87,7 +87,7 @@ public class BrickSpawner : MonoBehaviour
         currentLevelTotalBricks = BrickFactory.CreateBricks(level);
         //Create brick objects
         CreateBrickObjects(level);
-        //Position bricks in row and coloumn
+        //Position bricks in row and column
         PositionBricks();
     }
 
