@@ -33,7 +33,7 @@ public class BrickSpawner : MonoBehaviour
     {
         //TODO: Will refactor this later to text/json based
         //Create bricks with only multiples of 3 at the moment
-        currentLevel = new Level(1, UnityEngine.Random.Range(3,6),UnityEngine.Random.Range(3,10));
+        currentLevel = new Level(1, UnityEngine.Random.Range(3,5),UnityEngine.Random.Range(1,4)*3);
         CreateNewLevel(currentLevel);
     }
 
@@ -75,7 +75,7 @@ public class BrickSpawner : MonoBehaviour
         {
             DestroyCurrentLevel();
             //Create new level
-            currentLevel = new Level(1, UnityEngine.Random.Range(3,6),UnityEngine.Random.Range(3,10));
+            currentLevel = new Level(1, UnityEngine.Random.Range(3,5),UnityEngine.Random.Range(1,4)*3);
             CreateNewLevel(currentLevel);
         }
     }
