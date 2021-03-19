@@ -7,10 +7,18 @@ public class PadController : MonoBehaviour
     private InputManager inputManager;
     private Coroutine moveCoroutine;
     private Vector3 newPos = Vector3.zero;
+    private float screenLeft;
+    private float screeRight;
+    private SpriteRenderer spriteRenderer;
 
     private void Awake()
     {
         newPos = transform.position;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        screenLeft = Camera.main.ScreenToWorldPoint(new Vector2(0, Screen.height)).x;
+        screenLeft -= spriteRenderer.bounds.min.x;
+        screeRight = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height)).x;
+        screeRight -= spriteRenderer.bounds.max.x;
     }
 
     private void OnEnable()
@@ -29,7 +37,10 @@ public class PadController : MonoBehaviour
     {
         while (true) {
             newPos.x = inputManager.PrimaryPosition().x;
-            transform.position = newPos;
+            if(newPos.x>screenLeft && newPos.x<screeRight)
+            {
+                transform.position = newPos;
+            }
             yield return null;
         }
     }
