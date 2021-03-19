@@ -15,16 +15,14 @@ public class BrickSpawner : MonoBehaviour
     [SerializeField]
     private BallController ballController;
     private int bricksDestroyed;
+    private SpriteRenderer brickPrefabSprtRndr;
 
     public GameObject brickPrefab;
 
     private void Awake()
     {
+        brickPrefabSprtRndr = brickPrefab.GetComponent<SpriteRenderer>();
         brickSpacing = 0.1f;
-        Vector2 screenSize = new Vector2( 0 + Screen.width/10, Screen.height);
-        startSpawnPosition = Camera.main.ScreenToWorldPoint(screenSize);
-        startSpawnPosition.x += brickPrefab.transform.localScale.x / 2;
-        startSpawnPosition.y -= brickPrefab.transform.localScale.y;
         nextSpwanPosition = Vector2.zero;
         ballController.OnBallDropped += ResetCurrentLevel;
     }
@@ -54,6 +52,7 @@ public class BrickSpawner : MonoBehaviour
     
     private void PositionBricks()
     {
+        CalculateStartBrickSpawnPosition();
         for (int i = 0; i < currentLevel.Rows; i++)
         {
             for (int j = 0; j < currentLevel.Columns; j++)
@@ -135,4 +134,12 @@ public class BrickSpawner : MonoBehaviour
         }
     }
 
+    private void CalculateStartBrickSpawnPosition()
+    {
+        startSpawnPosition = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width/2, Screen.height));
+        startSpawnPosition.y -= 1.0f;
+        startSpawnPosition.x -= (brickPrefabSprtRndr.bounds.max.x * currentLevel.Columns);
+        startSpawnPosition.x += currentLevel.Columns * brickSpacing;
+        nextSpwanPosition = Vector2.zero;
+    }
 }
