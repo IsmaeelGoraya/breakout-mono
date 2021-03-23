@@ -36,5 +36,15 @@ public class BallController : MonoBehaviour
                 ResetBall();
             }
         }
+        
+        if(other.gameObject.name.Equals("Pad")){
+            if(transform.position.x<=other.transform.position.x){
+            //Ball hit left side of the pad
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x*-Mathf.Sign(rigidBody.velocity.x),rigidBody.velocity.y);
+            }else{
+            //Ball hit right side of the pad 
+                rigidBody.velocity = new Vector2(rigidBody.velocity.x*Mathf.Sign(rigidBody.velocity.x),rigidBody.velocity.y);
+            }
+        }
     }
 }
