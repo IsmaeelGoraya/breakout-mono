@@ -3,11 +3,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     private void Start()
     {
         CreateBoundryEdges();
     }
+
 	private void CreateBoundryEdges()
 	{
 		List<Vector2> newVertices = new List<Vector2>();
@@ -28,7 +28,4 @@ public class GameManager : MonoBehaviour
 		//Update the edge collider
 		edgeCollider.points = newVertices.ToArray();
 	}
-
-
-
 }
