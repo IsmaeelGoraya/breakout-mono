@@ -12,8 +12,6 @@ public class BrickSpawner : MonoBehaviour
     private float brickSpacing = 0.1f;
     private Vector2 startSpawnPosition;
     private Vector2 nextSpwanPosition;
-    [SerializeField]
-    private BallController ballController;
     private int bricksDestroyed;
     private SpriteRenderer brickPrefabSprtRndr;
 
@@ -24,7 +22,6 @@ public class BrickSpawner : MonoBehaviour
         brickPrefabSprtRndr = brickPrefab.GetComponent<SpriteRenderer>();
         brickSpacing = 0.1f;
         nextSpwanPosition = Vector2.zero;
-        ballController.OnBallDropped += ResetLevelBricks;
     }
 
     private void Start()
@@ -117,7 +114,7 @@ public class BrickSpawner : MonoBehaviour
         }
     }
 
-    private void ResetLevelBricks()
+    public void ResetLevelBricks()
     {
         if(currentLevel != null)
         {

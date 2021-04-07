@@ -3,9 +3,17 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private void Start()
+	[SerializeField]
+	private BallController ballController;
+	[SerializeField]
+	private PadController padControllerl;
+	[SerializeField]
+	private BrickSpawner brickSpawner;
+
+	private void Start()
     {
         CreateBoundryEdges();
+        ballController.OnBallDropped += brickSpawner.ResetLevelBricks;
     }
 
 	private void CreateBoundryEdges()

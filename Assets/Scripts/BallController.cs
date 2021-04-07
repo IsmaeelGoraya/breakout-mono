@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -7,8 +8,7 @@ public class BallController : MonoBehaviour
     private Vector2 ballSpawnPosition;
     private SpriteRenderer spriteRenderer;
 
-    public delegate void BallDroped();
-    public event BallDroped OnBallDropped;
+    public Action OnBallDropped;
 
     private void Awake()
     {
@@ -22,7 +22,7 @@ public class BallController : MonoBehaviour
     {
         ballSpawnPosition = new Vector2(0,-3);
         transform.position = ballSpawnPosition;
-        rigidBody.velocity = Random.insideUnitCircle.normalized * speed;
+        rigidBody.velocity = UnityEngine.Random.insideUnitCircle.normalized * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
